@@ -29,27 +29,27 @@ jobs:
       run: |
         docker pull ghcr.io/nrfconnect/sdk-nrf-toolchain:v2.6.1
 
-    - name: Install dependencies
-      run: |
-        sudo pat update && sudo apt install -y --no-install-recommends \
-        cmake \
-        ninja-build \
-        make \
-        python-3-pip
-        pip3 install --user west
+    # - name: Install dependencies
+    #   run: |
+    #     sudo pat update && sudo apt install -y --no-install-recommends \
+    #     cmake \
+    #     ninja-build \
+    #     make \
+    #     python-3-pip
+    #     pip3 install --user west
 
-    - name: Initialize nRF Connect SDK repos
-      run: |
-        west init -m https://github.com/nrfconnect/sdk-nrf --mr v2.6.1
-        cd nrf
-        west update
-        west zephyr-export
+    # - name: Initialize nRF Connect SDK repos
+    #   run: |
+    #     west init -m https://github.com/nrfconnect/sdk-nrf --mr v2.6.1
+    #     cd nrf
+    #     west update
+    #     west zephyr-export
 
-        cd ../
+    #     cd ../
         
-        # Install Python dependencies for Zephyr and NCS
-        pip3 install --user -r zephyr/scripts/requirements.txt
-        pip3 install --user -r nrf/scripts/requirements.txt
+    #     # Install Python dependencies for Zephyr and NCS
+    #     pip3 install --user -r zephyr/scripts/requirements.txt
+    #     pip3 install --user -r nrf/scripts/requirements.txt
 
     - name: Build
       # Build your program with the given configuration
