@@ -49,5 +49,5 @@ jobs:
 
     - name: Build
       # Build your program with the given configuration
-      run: west build -b supermini_uf2
+      run: west build --pristine --board supermini_uf2 -- -DNCS_TOOLCHAIN_VERSION=NONE -DBOARD_ROOT=slimenrf-tracker
 
