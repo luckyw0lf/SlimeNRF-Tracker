@@ -63,5 +63,9 @@ jobs:
     - name: Build
       # Build your program with the given configuration
       run: |
+          # Define the location of your custom boards
+          export ZEPHYR_BASE=/workspace/zephyr
+          export ZEPHYR_BOARD_ROOT=/workspace/boards
+          
           docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace ghcr.io/nrfconnect/sdk-nrf-toolchain:v2.6.1 \
-          west build --pristine --board supermini_uf2 -- -DNCS_TOOLCHAIN_VERSION=NONE
+          west build --pristine --board supermini_uf2 -- -DBOARD_ROOT=$ZEPHYR_BOARD_ROOT -DNCS_TOOLCHAIN_VERSION=NONE
