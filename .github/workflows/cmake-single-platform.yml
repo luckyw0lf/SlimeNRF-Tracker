@@ -1,5 +1,3 @@
-# This starter workflow is for a CMake project running on a single platform. There is a different starter workflow if you need cross-platform coverage.
-# See: https://github.com/actions/starter-workflows/blob/main/ci/cmake-multi-platform.yml
 name: Build UF2 supermini
 
 on:
@@ -9,14 +7,10 @@ on:
     branches: [ "master" ]
 
 env:
-  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Debug
 
 jobs:
   build:
-    # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
-    # You can convert this to a matrix build if you need cross-platform coverage.
-    # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
     runs-on: ubuntu-latest
 
     steps:
@@ -38,34 +32,12 @@ jobs:
         docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace/nrf ghcr.io/nrfconnect/sdk-nrf-toolchain:v2.6.1 \
         west zephyr-export
 
-    # - name: Install dependencies
-    #   run: |
-    #     sudo pat update && sudo apt install -y --no-install-recommends \
-    #     cmake \
-    #     ninja-build \
-    #     make \
-    #     python-3-pip
-    #     pip3 install --user west
-
-    # - name: Initialize nRF Connect SDK repos
-    #   run: |
-    #     west init -m https://github.com/nrfconnect/sdk-nrf --mr v2.6.1
-    #     cd nrf
-    #     west update
-    #     west zephyr-export
-
-    #     cd ../
-        
-    #     # Install Python dependencies for Zephyr and NCS
-    #     pip3 install --user -r zephyr/scripts/requirements.txt
-    #     pip3 install --user -r nrf/scripts/requirements.txt
-
     - name: Build
-      # Build your program with the given configuration
       run: |
           # Define the location of your custom boards
           export ZEPHYR_BASE=/workspace/zephyr
-          export ZEPHYR_BOARD_ROOT=/workspace/boards
-          
+          export ZEPHYR_BOARD_ROOT=/workspace
+
+          # Building the supermini_uf2 board
           docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace ghcr.io/nrfconnect/sdk-nrf-toolchain:v2.6.1 \
           west build --pristine --board supermini_uf2 -- -DBOARD_ROOT=$ZEPHYR_BOARD_ROOT -DNCS_TOOLCHAIN_VERSION=NONE
