@@ -32,7 +32,7 @@ jobs:
         ninja-build \
         make \
         python-3-pip
-        pip install --user west
+        pip3 install --user west
 
     - name: Build
       # Build your program with the given configuration
