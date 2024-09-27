@@ -20,7 +20,7 @@ extern bool main_ok;
 extern bool main_data;
 
 #define USER_SHUTDOWN_ENABLED true // Allow user to use reset or sw0 to shutdown
-#define MAG_ENABLED true // Use magnetometer if it is present
+#define MAG_ENABLED false // Use magnetometer if it is present
 #define IGNORE_RESET true // If sw0 available, don't change any reset behavior
 //#define WOM_USE_DCDC true // Use DCDC instead of LDO for WOM if it is more efficient
 
