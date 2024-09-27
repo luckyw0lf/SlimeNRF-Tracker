@@ -41,6 +41,8 @@ jobs:
         west update
         west zephyr-export
 
+        cd ../
+        
         # Install Python dependencies for Zephyr and NCS
         pip3 install --user -r zephyr/scripts/requirements.txt
         pip3 install --user -r nrf/scripts/requirements.txt
