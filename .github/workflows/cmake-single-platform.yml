@@ -24,7 +24,15 @@ jobs:
       with:
         submodules: true
         fetch-depth: 0
-          
+
+    - name: Install dependencies
+      run: |
+        sudo pat update && sudo apt install -y --no-install-recommends \
+        cmake \
+        ninja-build \
+        make \
+        python-3-pip
+        pip install --user west
 
     - name: Build
       # Build your program with the given configuration
