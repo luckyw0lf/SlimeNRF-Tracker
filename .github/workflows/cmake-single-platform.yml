@@ -34,6 +34,17 @@ jobs:
         python-3-pip
         pip3 install --user west
 
+    - name: Initialize nRF Connect SDK repos
+      run: |
+        west init -m https://github.com/nrfconnect/sdk-nrf --mr v2.6.1
+        cd nrf
+        west update
+        west zephyr-export
+
+        # Install Python dependencies for Zephyr and NCS
+        pip3 install --user -r zephyr/scripts/requirements.txt
+        pip3 install --user -r nrf/scripts/requirements.txt
+
     - name: Build
       # Build your program with the given configuration
       run: west build -b supermini_uf2
