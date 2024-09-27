@@ -25,6 +25,10 @@ jobs:
         submodules: true
         fetch-depth: 0
 
+    - name: Pull nRF Connect SDK Toolchain v2.6.1 Docker Image
+      run: |
+        docker pull ghcr.io/nrfconnect/sdk-nrf-toolchain:v2.6.1
+
     - name: Install dependencies
       run: |
         sudo pat update && sudo apt install -y --no-install-recommends \
