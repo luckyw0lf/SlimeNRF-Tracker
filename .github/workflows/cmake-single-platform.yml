@@ -29,6 +29,15 @@ jobs:
       run: |
         docker pull ghcr.io/nrfconnect/sdk-nrf-toolchain:v2.6.1
 
+    - name: Initialize and update nRF Connect SDK inside Docker
+      run: |
+        docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace ghcr.io/nrfconnect/sdk-nrf-toolchain:v2.6.1 \
+        west init -m https://github.com/nrfconnect/sdk-nrf --mr v2.6.1
+        docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace/nrf ghcr.io/nrfconnect/sdk-nrf-toolchain:v2.6.1 \
+        west update
+        docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace/nrf ghcr.io/nrfconnect/sdk-nrf-toolchain:v2.6.1 \
+        west zephyr-export
+
     # - name: Install dependencies
     #   run: |
     #     sudo pat update && sudo apt install -y --no-install-recommends \
